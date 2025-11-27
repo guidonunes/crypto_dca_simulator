@@ -7,7 +7,7 @@ public class App {
     public static void main(String[] args) {
         try {
             Connection connection = ConnectionFactory.getConnection();
-            System.out.println("Successfully connected to database.");
+            System.out.println("Successfully connected.");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
