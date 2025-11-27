@@ -4,6 +4,7 @@ import br.com.dca.model.PriceRecord;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +39,9 @@ public class CsvParser {
                     System.err.println("Skipping invalid row: " + line + " -> " + e.getMessage());
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return records;
     }
-
 }
