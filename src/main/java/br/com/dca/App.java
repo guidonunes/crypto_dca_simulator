@@ -3,6 +3,7 @@ import br.com.dca.dao.AssetPriceDAO;
 import br.com.dca.factory.ConnectionFactory;
 import br.com.dca.model.PriceRecord;
 import br.com.dca.strategy.DcaStrategy;
+import br.com.dca.strategy.LumpSumStrategy;
 import br.com.dca.util.CsvParser;
 
 import java.math.BigDecimal;
@@ -58,9 +59,11 @@ public class App {
 
             if (!btcData.isEmpty()) {
                 DcaStrategy dca = new DcaStrategy();
+                LumpSumStrategy lumpSum = new LumpSumStrategy();
 
                 // Simulate buying R$ 100.00 of Bitcoin every 30 days
-                BigDecimal result = dca.calculate(btcData, new BigDecimal("100.00"));
+                dca.calculate(btcData, new BigDecimal("100") );
+                lumpSum.calculate(btcData, new BigDecimal("7200"));
             }
 
 

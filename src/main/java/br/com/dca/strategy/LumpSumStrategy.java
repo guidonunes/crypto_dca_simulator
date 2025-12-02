@@ -35,7 +35,7 @@ public class LumpSumStrategy implements InvestmentStrategy {
 
         if(amount.compareTo(BigDecimal.ZERO) > 0) {
             BigDecimal profit = finalPortfolioValue.subtract(amount);
-            BigDecimal gainRatio = profit.divide(finalPrice, 4, RoundingMode.HALF_UP);
+            BigDecimal gainRatio = profit.divide(amount, 4, RoundingMode.HALF_UP);
             BigDecimal percentGain = gainRatio.multiply(new BigDecimal("100"));
 
             System.out.println("Profit/Loss: R$ " + profit);
