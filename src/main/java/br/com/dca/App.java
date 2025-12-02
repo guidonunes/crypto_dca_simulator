@@ -59,8 +59,6 @@ import java.util.List;
  *             }
  */
 
-
-
 public class App {
     public static void main(String[] args) {
         //
@@ -89,9 +87,11 @@ public class App {
 
             if (!ethData.isEmpty()) {
                 DcaStrategy dca = new DcaStrategy();
+                LumpSumStrategy lumpSum = new LumpSumStrategy();
 
                 // Simulate buying R$ 100.00 of Bitcoin every 30 days
                 dca.calculate(ethData, new BigDecimal("100.00"));
+                lumpSum.calculate(ethData, new BigDecimal("7200"));
 
             }
         } catch (SQLException ex) {

@@ -39,7 +39,7 @@ public class LumpSumStrategy implements InvestmentStrategy {
             BigDecimal percentGain = gainRatio.multiply(new BigDecimal("100"));
 
             System.out.println("Profit/Loss: R$ " + profit);
-            System.out.println("Total Gain: " + percentGain + "%");
+            System.out.println("Percent Gain: " + percentGain + "%");
         }
 
         return finalPortfolioValue;
