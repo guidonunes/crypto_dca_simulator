@@ -73,6 +73,12 @@ public class App {
 //                System.err.println("No Ethereum data found!");
 //
 //            }
+            if (!ethData.isEmpty()) {
+                DcaStrategy dca = new DcaStrategy();
+
+                // Simulate buying R$ 100.00 of Bitcoin every 30 days
+                BigDecimal result = dca.calculate(ethData, new BigDecimal("100.00"));
+            }
         } catch (SQLException ex) {
             System.err.println("Database error: " + ex.getMessage());
             ex.printStackTrace();
