@@ -14,7 +14,7 @@ public class DcaStrategy implements InvestmentStrategy {
         if(prices == null || prices.isEmpty()) {
             return BigDecimal.ZERO;
         }
-        prices.sort(Comparator.comparing(PriceRecord::getDate);
+        prices.sort(Comparator.comparing(PriceRecord::getDate));
 
         BigDecimal totalCryptoAccumulated = BigDecimal.ZERO;
         BigDecimal totalCashInvested =  BigDecimal.ZERO;
