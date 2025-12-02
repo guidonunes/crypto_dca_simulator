@@ -22,6 +22,7 @@ public class DcaStrategy implements InvestmentStrategy {
         LocalDate nextBuyDate = prices.get(0).getDate();
 
         System.out.println("\n -- Simulating DCA Strategy --");
+        int buyCount = 0;
         for (PriceRecord record : prices) {
             LocalDate currentDate = record.getDate();
 
@@ -33,14 +34,28 @@ public class DcaStrategy implements InvestmentStrategy {
                 );
 
                 totalCryptoAccumulated = totalCryptoAccumulated.add(cryptoBought);
-                totalCashInvested = totalCashInvested.add(cryptoBought);
+                totalCashInvested = totalCashInvested.add(investmentAmount);
 
+                buyCount++;
                 nextBuyDate = nextBuyDate.plusDays(30);
             }
         }
 
+        System.out.println("Total buys executed: " + buyCount);
         BigDecimal lastPrice = prices.get(prices.size()-1).getClosePrice();
         BigDecimal finalPortfolioValue = totalCryptoAccumulated.multiply(lastPrice);
+
+        System.out.println("Total Invested: R$ " + totalCashInvested);
+        System.out.println("Final Portfolio: R$ " + finalPortfolioValue);
+
+        if (totalCashInvested.compareTo(BigDecimal.ZERO) > 0) {
+            BigDecimal profit = finalPortfolioValue.subtract(totalCashInvested);
+            BigDecimal gainRatio = profit.divide(totalCashInvested, 4, RoundingMode.HALF_UP);
+            BigDecimal percentGain = gainRatio.multiply(new BigDecimal("100"));
+
+            System.out.println("Profit/Loss: R$ " + profit);
+            System.out.println("Percent Gain: " + percentGain + "%");
+        }
 
         return finalPortfolioValue;
     }

@@ -61,7 +61,6 @@ public class App {
 
                 // Simulate buying R$ 100.00 of Bitcoin every 30 days
                 BigDecimal result = dca.calculate(btcData, new BigDecimal("100.00"));
-                System.out.println(result);
             }
 
 
