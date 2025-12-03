@@ -139,6 +139,13 @@ public class App {
                         System.out.println("2. Ethereum (ETH)");
                         break;
                     case 2:
+                        runSimulation(scanner, parser);
+                        break;
+                    case 0:
+                        System.out.println("Bye bye!");
+                        break;
+                    default:
+                        System.out.printf("Please select a valid option!\n");
 
                 }
 
@@ -182,7 +189,7 @@ public class App {
             strategy.calculate(btcData, amount);
         }
 
-        System.out.println("\n-- Processing Ethereum Data");
+        System.out.println("\n-- Processing Ethereum Data --");
         List<PriceRecord> ethData = parser.parse("src/main/resources/eth_brl_history.csv", 2);
 
         if (!ethData.isEmpty()) {
