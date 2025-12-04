@@ -11,8 +11,8 @@ import java.sql.SQLException;
 public class SimulationDAO {
     public void save(SimulationResult result, String assetName) {
         String sql = "INSERT INTO simulations " +
-                "(strategy_type, asset_name, invested_amount, final_value, gain_percent, simulation_date) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                "(strategy_type, asset_name, invested_amount, final_value, gain_percent) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
