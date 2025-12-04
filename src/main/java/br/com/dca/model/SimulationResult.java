@@ -16,4 +16,24 @@ public class SimulationResult {
         this.profit = profit;
         this.percentGain = percentGain;
     }
+
+    public String getStrategyName() {
+        return strategyName;
+    }
+
+    public BigDecimal getInitialInvestment() {
+        return initialInvestment;
+    }
+
+    public BigDecimal getFinalValue() {
+        return finalValue;
+    }
+
+    public BigDecimal getProfit() {
+        return profit;
+    }
+
+    public BigDecimal getPercentGain() {
+        return percentGain;
+    }
 }
