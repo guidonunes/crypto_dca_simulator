@@ -1,5 +1,6 @@
 package br.com.dca;
 import br.com.dca.dao.AssetPriceDAO;
+import br.com.dca.dao.SimulationDAO;
 import br.com.dca.factory.ConnectionFactory;
 import br.com.dca.factory.StrategyFactory;
 import br.com.dca.model.PriceRecord;
@@ -189,6 +190,8 @@ public class App {
         if (!btcData.isEmpty()) {
             SimulationResult btcResult = strategy.calculate(btcData, amount);
             printReport("Bitcoin (BTC)", btcResult);
+
+            new SimulationDAO().save(btcResult, "Bitcoin");
         }
 
         System.out.println("\n-- Processing Ethereum Data --");
@@ -197,6 +200,8 @@ public class App {
         if (!ethData.isEmpty()) {
             SimulationResult ethResult = strategy.calculate(ethData, amount);
             printReport("Ethereum (ETH)", ethResult);
+
+            new SimulationDAO().save(ethResult, "Ethereum");
         }
     }
 
