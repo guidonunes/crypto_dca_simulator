@@ -196,4 +196,17 @@ public class App {
             strategy.calculate(ethData, amount);
         }
     }
+
+
+    private static void printReport(String assetName, SimulationResult result) {
+        System.out.println("-------------------------------------");
+        System.out.println(" Results for " + assetName);
+        System.out.println("-------------------------------------");
+        System.out.println("Strategy:       " + result.getStrategyName());
+        System.out.println("Total Invested: R$ " + result.getInitialInvestment());
+        System.out.println("Final Value:    R$ " + result.getFinalValue());
+        System.out.println("Profit/Loss:    R$ " + result.getProfit());
+        System.out.println("Percent Gain:   " + result.getPercentGain() + "%");
+        System.out.println("-------------------------------------\n");
+    }
 }
