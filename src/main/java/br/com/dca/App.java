@@ -3,6 +3,7 @@ import br.com.dca.dao.AssetPriceDAO;
 import br.com.dca.factory.ConnectionFactory;
 import br.com.dca.factory.StrategyFactory;
 import br.com.dca.model.PriceRecord;
+import br.com.dca.model.SimulationResult;
 import br.com.dca.strategy.DcaStrategy;
 import br.com.dca.strategy.InvestmentStrategy;
 import br.com.dca.strategy.LumpSumStrategy;
@@ -44,7 +45,7 @@ import java.util.Scanner;
  *             System.out.println("Date: " + record.getDate() + " | Price: R$ " + record.getClosePrice());
  *         }
  *
- * Inserting CSV Data into the DB
+ * // Inserting CSV Data into the DB
  * Bitcoin :
  *            if (!btcData.isEmpty()) {
  *                 assetPriceDAO.bulkInsertPrices(btcData);
@@ -186,14 +187,16 @@ public class App {
         System.out.println("\n-- Processing Bitcoin Data --");
         List<PriceRecord> btcData = parser.parse("src/main/resources/btc_brl_history.csv", 1);
         if (!btcData.isEmpty()) {
-            strategy.calculate(btcData, amount);
+            SimulationResult btcResult = strategy.calculate(btcData, amount);
+            printReport("Bitcoin (BTC)", btcResult);
         }
 
         System.out.println("\n-- Processing Ethereum Data --");
         List<PriceRecord> ethData = parser.parse("src/main/resources/eth_brl_history.csv", 2);
 
         if (!ethData.isEmpty()) {
-            strategy.calculate(ethData, amount);
+            SimulationResult ethResult = strategy.calculate(ethData, amount);
+            printReport("Ethereum (ETH)", ethResult);
         }
     }
 
