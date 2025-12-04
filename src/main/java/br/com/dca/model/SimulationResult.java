@@ -8,4 +8,12 @@ public class SimulationResult {
     private BigDecimal finalValue;
     private BigDecimal profit;
     private BigDecimal percentGain;
+
+    public SimulationResult(String strategyName, BigDecimal initialInvestment, BigDecimal finalValue, BigDecimal profit, BigDecimal percentGain) {
+        this.strategyName = strategyName;
+        this.initialInvestment = initialInvestment;
+        this.finalValue = finalValue;
+        this.profit = profit;
+        this.percentGain = percentGain;
+    }
 }
