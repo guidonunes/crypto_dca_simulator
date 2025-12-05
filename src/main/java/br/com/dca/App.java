@@ -109,7 +109,8 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         CsvParser parser = new CsvParser();
 
-        System.out.println("Welcome to the DCA Simulator!");
+        System.out.println(">> WELCOME TO DCA SIMULATOR <<");
+        System.out.println("Simulate strategy using historical data from 2020 to 2025");
 
         int userChoice = -1;
 
@@ -163,45 +164,47 @@ public class App {
 
     private static void runSimulation(Scanner scanner, CsvParser parser) {
         System.out.println("\n-- New Simulation ---");
+        // 1. Choose Strategy
         System.out.println("Enter Strategy (DCA or LUMP)");
         String strategyType = scanner.nextLine();
+        // 2. Choose Asset
+        System.out.println("Choose Asset:");
+        System.out.println("1. Bitcoin (BTC)");
+        System.out.println("2. Ethereum (ETH)");
+        System.out.println("Enter choice: (e.g. 1)");
 
+        int assetChoice = -1;
+        if(scanner.hasNextInt()) {
+            assetChoice = scanner.nextInt();
+            scanner.nextLine();
+        } else {
+            scanner.nextLine();
+        }
+        // 3. Call the helper method
+        String filePath = getFilePathForAsset(assetChoice);
+
+        if(filePath == null) {
+            System.out.println("Error: Asset not found!");
+            return;
+        }
+
+        // 4. Get Amount
         System.out.println("Enter Investment Amount (e.g. 100): ");
         String investmentAmount = scanner.nextLine();
-        BigDecimal amount;
-        try {
-            amount = new BigDecimal(investmentAmount);
-        } catch (NumberFormatException ex) {
-            System.out.println("Invalid Investment Amount");
-            return;
-        }
+        BigDecimal amount = new BigDecimal(investmentAmount);
 
-        InvestmentStrategy strategy;
-        try {
-            strategy = StrategyFactory.getStrategy(strategyType);
-        } catch (IllegalArgumentException ex) {
-            System.out.println("Invalid Strategy: " + ex.getMessage());
-            return;
-        }
+        // 5. Run the specific simulation
+        InvestmentStrategy strategy = StrategyFactory.getStrategy(strategyType);
 
+        System.out.println("Processing data...");
+        List<PriceRecord> data = parser.parse(filePath, assetChoice);
 
-        System.out.println("\n-- Processing Bitcoin Data --");
-        List<PriceRecord> btcData = parser.parse("src/main/resources/btc_brl_history.csv", 1);
-        if (!btcData.isEmpty()) {
-            SimulationResult btcResult = strategy.calculate(btcData, amount);
-            printReport("Bitcoin (BTC)", btcResult);
+        if(!data.isEmpty()) {
+            SimulationResult result = strategy.calculate(data, amount);
+            String assetName = (assetChoice == 1) ? "Bitcoin" : "Ethereum";
 
-            new SimulationDAO().save(btcResult, "Bitcoin");
-        }
-
-        System.out.println("\n-- Processing Ethereum Data --");
-        List<PriceRecord> ethData = parser.parse("src/main/resources/eth_brl_history.csv", 2);
-
-        if (!ethData.isEmpty()) {
-            SimulationResult ethResult = strategy.calculate(ethData, amount);
-            printReport("Ethereum (ETH)", ethResult);
-
-            new SimulationDAO().save(ethResult, "Ethereum");
+            printReport(assetName, result);
+            new SimulationDAO().save(result, assetName);
         }
     }
 
