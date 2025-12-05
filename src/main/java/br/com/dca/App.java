@@ -109,31 +109,14 @@ public class App {
 
         CsvParser csvParser = new CsvParser();
         AssetPriceDAO assetPriceDAO = new AssetPriceDAO();
-        String xrpPath = "src/main/resources/xrp_brl_history.csv";
+        String assetPath = "src/main/resources/bnb_brl_history.csv";
+        List<PriceRecord> assetData = csvParser.parse(assetPath, 4);
 
-          System.out.println("---1. Testing the CSV Parser");
-          List<PriceRecord> xrpData = csvParser.parse(xrpPath, 3);
-          try {
-              if (xrpData.isEmpty()) {
-                  System.out.println("---1. No data found");
-                  return;
-              }
-
-              System.out.println("Successfuly parsed " + xrpData.size() + " data");
-
-              System.out.println("\n First 5 Records --- Verify if it is right");
-              for (int i = 0; i < Math.min(5, xrpData.size()); i++) {
-                  PriceRecord record = xrpData.get(i);
-
-                  System.out.println("Date: " + record.getDate() + " | Price: R$ " + record.getClosePrice());
-              }
-
-              // Inserting CSV Data into the DB
-              Bitcoin :
-              if (!xrpData.isEmpty()) {
-                  assetPriceDAO.bulkInsertPrices(xrpData);
+         try {
+              if (!assetData.isEmpty()) {
+                  assetPriceDAO.bulkInsertPrices(assetData);
               } else {
-                  System.err.println("No XRP data found!");
+                  System.err.println("No data found!");
               }
           } catch (Exception e) {
               System.out.println(e.getMessage());
