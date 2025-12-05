@@ -72,8 +72,19 @@ public class App {
                 switch (userChoice) {
                     case 1:
                         System.out.println("\n---Available assets ---");
+                        System.out.println(">>CRYPTO<<");
+                        System.out.println();
                         System.out.println("1. Bitcoin (BTC)");
                         System.out.println("2. Ethereum (ETH)");
+                        System.out.println("3. Ripple (XRP)");
+                        System.out.println("4. Binance Chain (BNB)");
+                        System.out.println("5. Solana (SOL)");
+                        System.out.println();
+                        System.out.println(">>STOCK INDEXES<<");
+                        System.out.println();
+                        System.out.println("6. B3 Brazil (BOVA11)");
+                        System.out.println("7. S&P500 Index (IVVB11)");
+                        System.out.println("8. NASDAQ100 Index (NASD11)");
                         break;
                     case 2:
                         runSimulation(scanner, parser);
@@ -102,10 +113,22 @@ public class App {
         System.out.println("Enter Strategy (DCA or LUMP)");
         String strategyType = scanner.nextLine();
         // 2. Choose Asset
-        System.out.println("Choose Asset:");
+        System.out.println("Choose asset:");
+        System.out.println(">>CRYPTO<<");
+        System.out.println();
         System.out.println("1. Bitcoin (BTC)");
         System.out.println("2. Ethereum (ETH)");
-        System.out.println("Enter choice: (e.g. 1)");
+        System.out.println("3. Ripple (XRP)");
+        System.out.println("4. Binance Chain (BNB)");
+        System.out.println("5. Solana (SOL)");
+        System.out.println();
+        System.out.println(">>STOCK INDEXES<<");
+        System.out.println();
+        System.out.println("6. B3 Brazil (BOVA11)");
+        System.out.println("7. S&P500 Index (IVVB11)");
+        System.out.println("8. NASDAQ100 Index (NASD11)");
+        System.out.println();
+        System.out.print("Select an option (e.g. 1): ");
 
         int assetChoice = -1;
         if(scanner.hasNextInt()) {
@@ -135,7 +158,17 @@ public class App {
 
         if(!data.isEmpty()) {
             SimulationResult result = strategy.calculate(data, amount);
-            String assetName = (assetChoice == 1) ? "Bitcoin" : "Ethereum";
+            String assetName = switch(assetChoice) {
+                case 1 -> "Bitcoin";
+                case 2 -> "Ethereum";
+                case 3 -> "Ripple";
+                case 4 -> "Binance Chain";
+                case 5 -> "Solana";
+                case 6 -> "Brazilian B3 Index";
+                case 7 -> "S&P500 Index";
+                case 8 -> "NASDAQ100 Index";
+                default -> null;
+            };
 
             printReport(assetName, result);
             new SimulationDAO().save(result, assetName);
@@ -159,6 +192,12 @@ public class App {
         return switch (assetChoice) {
             case 1 -> "src/main/resources/btc_brl_history.csv";
             case 2 -> "src/main/resources/eth_brl_history.csv";
+            case 3 -> "src/main/resources/xrp_brl_history.csv";
+            case 4 -> "src/main/resources/bnb_brl_history.csv";
+            case 5 -> "src/main/resources/sol_brl_history.csv";
+            case 6 -> "src/main/resources/bova11_brl_history.csv";
+            case 7 -> "src/main/resources/ivvb11_brl_history.csv";
+            case 8 -> "src/main/resources/nasd11_brl_history.csv";
             default -> null;
         };
     }
