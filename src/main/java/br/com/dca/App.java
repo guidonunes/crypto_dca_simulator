@@ -109,8 +109,8 @@ public class App {
 
         CsvParser csvParser = new CsvParser();
         AssetPriceDAO assetPriceDAO = new AssetPriceDAO();
-        String assetPath = "src/main/resources/bova11_brl_history.csv";
-        List<PriceRecord> assetData = csvParser.parse(assetPath, 6);
+        String assetPath = "src/main/resources/nasd11_brl_history.csv";
+        List<PriceRecord> assetData = csvParser.parse(assetPath, 8);
 
          try {
               if (!assetData.isEmpty()) {
