@@ -6,7 +6,7 @@ This project focuses on **Clean Architecture**, **financial precision**, and **s
 
 ---
 
-## ⚠️ Financial Disclaimer (Read Carefully)
+## ⚠️ Financial Disclaimer 
 
 This software is for **educational and informational purposes only**.
 
