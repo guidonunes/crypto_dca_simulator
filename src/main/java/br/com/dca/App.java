@@ -217,4 +217,12 @@ public class App {
         System.out.println("Percent Gain:   " + result.getPercentGain() + "%");
         System.out.println("-------------------------------------\n");
     }
+
+    private static String getFilePathForAsset(int assetChoice) {
+        return switch (assetChoice) {
+            case 1 -> "src/main/resources/btc_brl_history.csv";
+            case 2 -> "src/main/resources/eth_brl_history.csv";
+            default -> null;
+        };
+    }
 }
