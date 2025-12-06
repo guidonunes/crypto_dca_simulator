@@ -3,11 +3,13 @@ package br.com.dca.dao;
 import br.com.dca.factory.ConnectionFactory;
 import br.com.dca.model.SimulationResult;
 
+import java.math.BigDecimal;
 import java.rmi.ServerError;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimulationDAO {
@@ -34,12 +36,26 @@ public class SimulationDAO {
 
     public List<SimulationResult> findAll() {
         String sql = "SELECT * FROM simulations ORDER BY simulation_date DESC";
+        List<SimulationResult> history = new ArrayList<>();
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()){
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String strategy = rs.getString("strategy_type");
+                BigDecimal initialInvestment = rs.getBigDecimal("invested_amount");
+                BigDecimal finalValue = rs.getBigDecimal("final_value");
+                BigDecimal profit = rs.getBigDecimal("profit");
+                BigDecimal percentGain = rs.getBigDecimal("gain_percent");
+
+                SimulationResult result = new SimulationResult(strategy, initialInvestment, finalValue, profit, percentGain);
+                history.add(result);
+            }
+
 
         } catch (SQLException e) {
             System.err.println("Error fetching simulations: " + e.getMessage());
         }
+        return history;
     }
 }
