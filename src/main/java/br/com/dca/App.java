@@ -57,6 +57,8 @@ public class App {
                         1 - See available assets \
 
                         2 - Choose an investment strategy to simulate \
+                        
+                        3 - Simulation history \
 
                         0 - Quit""");
                 System.out.print("Select an option: ");
@@ -89,6 +91,8 @@ public class App {
                     case 2:
                         runSimulation(scanner, parser);
                         break;
+                    case 3:
+
                     case 0:
                         System.out.println("Bye bye!");
                         break;
@@ -201,4 +205,6 @@ public class App {
             default -> null;
         };
     }
+
+
 }

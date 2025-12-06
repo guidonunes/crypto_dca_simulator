@@ -43,12 +43,13 @@ public class SimulationDAO {
 
             while (rs.next()) {
                 String strategy = rs.getString("strategy_type");
+                String assetName = rs.getString("asset_name");
                 BigDecimal initialInvestment = rs.getBigDecimal("invested_amount");
                 BigDecimal finalValue = rs.getBigDecimal("final_value");
                 BigDecimal profit = rs.getBigDecimal("profit");
                 BigDecimal percentGain = rs.getBigDecimal("gain_percent");
 
-                SimulationResult result = new SimulationResult(strategy, initialInvestment, finalValue, profit, percentGain);
+                SimulationResult result = new SimulationResult(strategy, assetName, initialInvestment, finalValue, profit, percentGain);
                 history.add(result);
             }
 
