@@ -6,7 +6,9 @@ import br.com.dca.model.SimulationResult;
 import java.rmi.ServerError;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class SimulationDAO {
     public void save(SimulationResult result, String assetName) {
@@ -27,6 +29,17 @@ public class SimulationDAO {
 
         } catch (SQLException e) {
             System.err.println("Error saving simulation: " + e.getMessage());
+        }
+    }
+
+    public List<SimulationResult> findAll() {
+        String sql = "SELECT * FROM simulations ORDER BY simulation_date DESC";
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()){
+
+        } catch (SQLException e) {
+            System.err.println("Error fetching simulations: " + e.getMessage());
         }
     }
 }
