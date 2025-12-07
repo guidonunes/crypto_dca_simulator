@@ -63,5 +63,12 @@ public class SimulationDAO {
 
     public void deleteById(String id) {
         String sql = "DELETE FROM simulations WHERE id = ?";
+
+        try(Connection conn = ConnectionFactory.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        } catch (SQLException e) {
+            System.err.println("Error deleting simulation: " + e.getMessage());
+        }
     }
 }
