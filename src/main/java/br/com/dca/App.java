@@ -207,6 +207,7 @@ public class App {
         };
     }
 
+
     private static void showHistory() {
         System.out.println("\n--- Simulation History ---");
 
@@ -235,6 +236,8 @@ public class App {
         }
         System.out.println("-----------------------------------------------------------------------\n");
     }
+
+
 
 
 }
