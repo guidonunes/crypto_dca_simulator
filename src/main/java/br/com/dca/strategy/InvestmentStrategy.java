@@ -7,5 +7,5 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface InvestmentStrategy {
-    SimulationResult calculate (List<PriceRecord> prices, BigDecimal investmentAmount);
+    SimulationResult calculate (List<PriceRecord> prices, BigDecimal investmentAmount, double feePercentage);
 }
