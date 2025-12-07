@@ -60,4 +60,8 @@ public class SimulationDAO {
         }
         return history;
     }
+
+    public void deleteById(String id) {
+        String sql = "DELETE FROM simulations WHERE id = ?";
+    }
 }
