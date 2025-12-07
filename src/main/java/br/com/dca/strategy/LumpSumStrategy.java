@@ -12,7 +12,7 @@ public class LumpSumStrategy implements InvestmentStrategy {
     @Override
     public SimulationResult calculate (List<PriceRecord> prices, BigDecimal amount) {
         if(prices == null || prices.isEmpty()) {
-            return new SimulationResult("LUMP", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+            return new SimulationResult("LUMP", null, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
         }
 
         prices.sort(Comparator.comparing(PriceRecord::getDate));
@@ -33,6 +33,7 @@ public class LumpSumStrategy implements InvestmentStrategy {
 
         return new SimulationResult(
                 "LUMP",
+                null,
                 amount,
                 finalPortfolioValue,
                 profit,
@@ -40,3 +41,4 @@ public class LumpSumStrategy implements InvestmentStrategy {
         );
     }
 }
+

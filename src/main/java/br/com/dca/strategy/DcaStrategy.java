@@ -13,7 +13,7 @@ public class DcaStrategy implements InvestmentStrategy {
     @Override
     public SimulationResult calculate(List<PriceRecord> prices, BigDecimal investmentAmount) {
         if(prices == null || prices.isEmpty()) {
-            return new SimulationResult("DCA", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+            return new SimulationResult("DCA", null, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
         }
         prices.sort(Comparator.comparing(PriceRecord::getDate));
 
@@ -50,6 +50,7 @@ public class DcaStrategy implements InvestmentStrategy {
 
         return new SimulationResult(
                 "DCA",
+                null,
                 totalCashInvested,
                 finalPortfolioValue,
                 profit,

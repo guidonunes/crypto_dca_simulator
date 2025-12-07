@@ -15,8 +15,8 @@ import java.util.List;
 public class SimulationDAO {
     public void save(SimulationResult result, String assetName) {
         String sql = "INSERT INTO simulations " +
-                "(strategy_type, asset_name, invested_amount, final_value, gain_percent) " +
-                "VALUES (?, ?, ?, ?, ?)";
+                "(strategy_type, asset_name, invested_amount, final_value, profit, gain_percent) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -24,7 +24,8 @@ public class SimulationDAO {
              stmt.setString(2, assetName);
              stmt.setBigDecimal(3, result.getInitialInvestment());
              stmt.setBigDecimal(4, result.getFinalValue());
-             stmt.setBigDecimal(5, result.getPercentGain());
+             stmt.setBigDecimal(5, result.getProfit());
+             stmt.setBigDecimal(6, result.getPercentGain());
 
              stmt.execute();
             System.out.println(">> [Database] Simulation saved successfully");

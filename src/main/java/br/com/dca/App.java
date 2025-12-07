@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
+
 /**
      // Insert data
 
@@ -92,7 +93,7 @@ public class App {
                         runSimulation(scanner, parser);
                         break;
                     case 3:
-
+                        showHistory();
                     case 0:
                         System.out.println("Bye bye!");
                         break;
@@ -204,6 +205,35 @@ public class App {
             case 8 -> "src/main/resources/nasd11_brl_history.csv";
             default -> null;
         };
+    }
+
+    private static void showHistory() {
+        System.out.println("\n--- Simulation History ---");
+
+        // 1. Get data from DB
+        SimulationDAO dao = new SimulationDAO();
+        List<SimulationResult> history = dao.findAll();
+
+        if (history.isEmpty()) {
+            System.out.println("No history found yet. Run a simulation first!");
+            return;
+        }
+
+        System.out.printf("%-10s %-15s %-15s %-15s %-10s%n",
+                "Strategy", "Asset", "Invested", "Profit", "Gain %");
+        System.out.println("-----------------------------------------------------------------------");
+
+        // 3. Print Rows
+        for (SimulationResult r : history) {
+            System.out.printf("%-10s %-15s R$ %-12s R$ %-12s %s%%%n",
+                    r.getStrategyName(),
+                    r.getAssetName(),
+                    r.getInitialInvestment(),
+                    r.getProfit(),
+                    r.getPercentGain()
+            );
+        }
+        System.out.println("-----------------------------------------------------------------------\n");
     }
 
 
