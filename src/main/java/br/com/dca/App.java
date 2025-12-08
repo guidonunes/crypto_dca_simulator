@@ -81,7 +81,7 @@ public class App {
                         System.out.println();
                         System.out.println("1. Bitcoin (BTC)");
                         System.out.println("2. Ethereum (ETH)");
-                        System.out.println("3. Ripple (XRP)");
+                        System.out.println("3. Cardano (ADA)");
                         System.out.println("4. Binance Chain (BNB)");
                         System.out.println("5. Solana (SOL)");
                         System.out.println();
@@ -129,7 +129,7 @@ public class App {
         System.out.println();
         System.out.println("1. Bitcoin (BTC)");
         System.out.println("2. Ethereum (ETH)");
-        System.out.println("3. Ripple (XRP)");
+        System.out.println("3. Cardano (ADA)");
         System.out.println("4. Binance Chain (BNB)");
         System.out.println("5. Solana (SOL)");
         System.out.println();
@@ -173,7 +173,7 @@ public class App {
             String assetName = switch(assetChoice) {
                 case 1 -> "Bitcoin";
                 case 2 -> "Ethereum";
-                case 3 -> "XRP";
+                case 3 -> "Cardano";
                 case 4 -> "Binance Chain";
                 case 5 -> "Solana";
                 case 6 -> "B3 Index";
@@ -204,7 +204,7 @@ public class App {
         return switch (assetChoice) {
             case 1 -> "src/main/resources/btc_brl_history.csv";
             case 2 -> "src/main/resources/eth_brl_history.csv";
-            case 3 -> "src/main/resources/xrp_brl_history.csv";
+            case 3 -> "src/main/resources/ada_brl_history.csv";
             case 4 -> "src/main/resources/bnb_brl_history.csv";
             case 5 -> "src/main/resources/sol_brl_history.csv";
             case 6 -> "src/main/resources/bova11_brl_history.csv";
