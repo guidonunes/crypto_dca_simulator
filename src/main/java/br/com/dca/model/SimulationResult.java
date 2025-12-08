@@ -3,6 +3,7 @@ package br.com.dca.model;
 import java.math.BigDecimal;
 
 public class SimulationResult {
+    private int id;
     private String strategyName;
     private String assetName;
     private BigDecimal initialInvestment;
@@ -17,6 +18,14 @@ public class SimulationResult {
         this.finalValue = finalValue;
         this.profit = profit;
         this.percentGain = percentGain;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getStrategyName() {

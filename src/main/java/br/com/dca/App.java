@@ -60,6 +60,8 @@ public class App {
                         2 - Choose an investment strategy to simulate \
                         
                         3 - Simulation history \
+                        
+                        4 - Delete simulation \
 
                         0 - Quit""");
                 System.out.print("Select an option: ");
@@ -94,6 +96,10 @@ public class App {
                         break;
                     case 3:
                         showHistory();
+                        break;
+                    case 4:
+                        deleteMenu(scanner);
+                        break;
                     case 0:
                         System.out.println("Bye bye!");
                         break;
@@ -220,13 +226,14 @@ public class App {
             return;
         }
 
-        System.out.printf("%-10s %-15s %-15s %-15s %-10s%n",
-                "Strategy", "Asset", "Invested", "Profit", "Gain %");
+        System.out.printf("%-5s %-10s %-15s %-15s %-15s %-10s%n",
+               "ID", "Strategy", "Asset", "Invested", "Profit", "Gain %");
         System.out.println("-----------------------------------------------------------------------");
 
         // 3. Print Rows
         for (SimulationResult r : history) {
-            System.out.printf("%-10s %-15s R$ %-12s R$ %-12s %s%%%n",
+            System.out.printf("%-5d %-10s %-15s R$ %-12s R$ %-12s %s%%%n",
+                    r.getId(),
                     r.getStrategyName(),
                     r.getAssetName(),
                     r.getInitialInvestment(),
@@ -237,7 +244,51 @@ public class App {
         System.out.println("-----------------------------------------------------------------------\n");
     }
 
+    private static void deleteMenu(Scanner scanner) {
+        System.out.println("\n--- Delete Options ---");
+        System.out.println("1 - Delete specific simulation by ID");
+        System.out.println("2 - Delete ALL history");
+        System.out.println("0 - Cancel");
+        System.out.print("Choose option: ");
 
+        int choice = -1;
+        if (scanner.hasNextInt()) {
+            choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+        } else {
+            scanner.nextLine();
+            return;
+        }
+
+        SimulationDAO dao = new SimulationDAO();
+
+        switch (choice) {
+            case 1:
+                // Delete Single
+                System.out.print("Enter ID to delete: ");
+                if (scanner.hasNextInt()) {
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+                    dao.deleteById(id);
+                }
+                break;
+            case 2:
+                // Delete All (With Confirmation)
+                System.out.print("Are you sure? This deletes EVERYTHING. (y/n): ");
+                String confirm = scanner.nextLine();
+                if (confirm.equalsIgnoreCase("y")) {
+                    dao.deleteAll();
+                } else {
+                    System.out.println("Operation cancelled.");
+                }
+                break;
+            case 0:
+                System.out.println("Returning to menu...");
+                break;
+            default:
+                System.out.println("Invalid option.");
+        }
+    }
 
 
 }

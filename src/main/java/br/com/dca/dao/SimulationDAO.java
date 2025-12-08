@@ -43,6 +43,7 @@ public class SimulationDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String strategy = rs.getString("strategy_type");
                 String assetName = rs.getString("asset_name");
                 BigDecimal initialInvestment = rs.getBigDecimal("invested_amount");
@@ -51,6 +52,7 @@ public class SimulationDAO {
                 BigDecimal percentGain = rs.getBigDecimal("gain_percent");
 
                 SimulationResult result = new SimulationResult(strategy, assetName, initialInvestment, finalValue, profit, percentGain);
+                result.setId(id);
                 history.add(result);
             }
 
