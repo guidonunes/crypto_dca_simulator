@@ -61,11 +61,20 @@ public class SimulationDAO {
         return history;
     }
 
-    public void deleteById(String id) {
+    public void deleteById(int id) {
         String sql = "DELETE FROM simulations WHERE id = ?";
 
         try(Connection conn = ConnectionFactory.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Success: Simulation #" + id + " has been deleted.");
+            } else {
+                System.out.println("Error: Simulation #" + id + " not found.");
+            }
+
 
         } catch (SQLException e) {
             System.err.println("Error deleting simulation: " + e.getMessage());
