@@ -80,4 +80,17 @@ public class SimulationDAO {
             System.err.println("Error deleting simulation: " + e.getMessage());
         }
     }
+
+    public void deleteAll() {
+        String sql = "TRUNCATE TABLE simulations";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.execute();
+            System.out.println("Success: All simulations have been deleted.");
+
+        } catch (SQLException e) {
+            System.err.println("Error deleting simulations: " + e.getMessage());
+        }
+    }
 }
