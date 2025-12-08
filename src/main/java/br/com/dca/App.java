@@ -57,7 +57,7 @@ public class App {
 
                         1 - See available assets \
 
-                        2 - Choose an investment strategy to simulate \
+                        2 - Simulate a strategy \
                         
                         3 - Simulation history \
                         
@@ -139,7 +139,7 @@ public class App {
         System.out.println("7. S&P500 Index (IVVB11)");
         System.out.println("8. NASDAQ100 Index (NASD11)");
         System.out.println();
-        System.out.print("Select an option (e.g. 1): ");
+        System.out.print("Select an option (from 1 to 8): ");
 
         int assetChoice = -1;
         if(scanner.hasNextInt()) {
@@ -165,6 +165,7 @@ public class App {
         InvestmentStrategy strategy = StrategyFactory.getStrategy(strategyType);
 
         System.out.println("Processing data...");
+
         List<PriceRecord> data = parser.parse(filePath, assetChoice);
 
         if(!data.isEmpty()) {
@@ -172,10 +173,10 @@ public class App {
             String assetName = switch(assetChoice) {
                 case 1 -> "Bitcoin";
                 case 2 -> "Ethereum";
-                case 3 -> "Ripple";
+                case 3 -> "XRP";
                 case 4 -> "Binance Chain";
                 case 5 -> "Solana";
-                case 6 -> "Brazilian B3 Index";
+                case 6 -> "B3 Index";
                 case 7 -> "S&P500 Index";
                 case 8 -> "NASDAQ100 Index";
                 default -> null;
