@@ -30,11 +30,19 @@ public class CsvParser {
                     String rawDate = values[0].replace("\"", "");
                     String rawPrice = values[1].replace("\"", "");
 
+                    if (rawPrice == null || rawPrice.trim().isEmpty()) {
+                        continue; // Skip rows with empty price
+                    }
+
                     LocalDate date = LocalDate.parse(rawDate, formatter);
                     rawPrice = rawPrice.replace(".", "").replace(",", ".");
 
                     BigDecimal price = new BigDecimal(rawPrice);
-                    records.add(new PriceRecord(assetId, date, price));
+                    
+                    // Only add records with valid positive prices
+                    if (price.compareTo(BigDecimal.ZERO) > 0) {
+                        records.add(new PriceRecord(assetId, date, price));
+                    }
                 } catch (Exception e) {
                     System.err.println("Skipping invalid row: " + line + " -> " + e.getMessage());
                 }
