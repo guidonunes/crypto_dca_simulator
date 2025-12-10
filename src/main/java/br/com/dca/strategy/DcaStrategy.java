@@ -31,7 +31,6 @@ public class DcaStrategy implements InvestmentStrategy {
         BigDecimal totalCashInvested =  BigDecimal.ZERO;
         LocalDate nextBuyDate = validPrices.get(0).getDate();
 
-        int buyCount = 0;
         for (PriceRecord record : validPrices) {
             LocalDate currentDate = record.getDate();
             if(!currentDate.isBefore(nextBuyDate)) {
@@ -42,7 +41,7 @@ public class DcaStrategy implements InvestmentStrategy {
                 );
                 totalCryptoAccumulated = totalCryptoAccumulated.add(cryptoBought);
                 totalCashInvested = totalCashInvested.add(investmentAmount);
-                buyCount++;
+
                 nextBuyDate = nextBuyDate.plusDays(30);
             }
         }
