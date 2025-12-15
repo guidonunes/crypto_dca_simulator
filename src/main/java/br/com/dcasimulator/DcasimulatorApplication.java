@@ -19,19 +19,18 @@ public class DcasimulatorApplication {
     @Bean
     public CommandLineRunner demo(SimulationResultRepository repository) {
         return (args) -> {
-            // 1. Create the data (The "Noun")
-            SimulationResult myResult = new SimulationResult(
-                    1000.0, // invested
-                    1500.0, // value
-                    500.0,  // profit
-                    50.0    // percentage
+            SimulationResult testResult = new SimulationResult(
+                    "DCA",          // Strategy Type
+                    "Bitcoin",      // Asset Name
+                    7200.00,        // Invested
+                    25116.68,       // Final Value
+                    17916.68,       // Profit
+                    248.84          // Gain Percent
+                    // Date is set automatically in the constructor!
             );
 
-            // 2. Save the data (The "Verb")
-            repository.save(myResult);
-
-            // 3. Check the Console
-            System.out.println("✅ SAVED! New ID is: " + myResult.getId());
+            repository.save(testResult);
+            System.out.println("✅ Saved legacy-style simulation!");
         };
     }
 }

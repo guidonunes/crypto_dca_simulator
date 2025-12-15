@@ -1,47 +1,110 @@
 package br.com.dcasimulator.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "simulations")
 public class SimulationResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double totalInvested;
-    private double totalValue;
-    private double profitOrLoss;
-    private double profitPercentage;
+    @Column(name="strategy_type")
+    private String strategyType;
+
+    @Column(name="asset_name")
+    private String assetName;
+
+    @Column(name="invested_amount")
+    private Double investedAmount;
+
+    @Column(name="final_value")
+    private Double finalValue;
+
+    private Double profit;
+
+    @Column(name="gain_percent")
+    private Double gainPercent;
+
+    @Column(name="simulation_date")
+    private LocalDateTime simulationDate;
 
     public SimulationResult() {}
 
-    public SimulationResult(double totalInvested, double totalValue, double profitOrLoss, double profitPercentage) {
-        this.totalInvested = totalInvested;
-        this.totalValue = totalValue;
-        this.profitOrLoss = profitOrLoss;
-        this.profitPercentage = profitPercentage;
+    public SimulationResult(String strategyType, String assetName, Double investedAmount,
+                            Double finalValue, Double profit, Double gainPercent) {
+        this.strategyType = strategyType;
+        this.assetName = assetName;
+        this.investedAmount = investedAmount;
+        this.finalValue = finalValue;
+        this.profit = profit;
+        this.gainPercent = gainPercent;
+        this.simulationDate = LocalDateTime.now();
     }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public double getTotalInvested() { return totalInvested; }
+    public String getStrategyType() {
+        return strategyType;
+    }
 
-    public void setTotalInvested(double totalInvested) { this.totalInvested = totalInvested; }
+    public void setStrategyType(String strategyType) {
+        this.strategyType = strategyType;
+    }
 
-    public double getTotalValue() { return totalValue; }
+    public String getAssetName() {
+        return assetName;
+    }
 
-    public void setTotalValue(double totalValue) { this.totalValue = totalValue; }
+    public void setAssetName(String assetName) {
+        this.assetName = assetName;
+    }
 
-    public double getProfitOrLoss() { return profitOrLoss; }
+    public Double getInvestedAmount() {
+        return investedAmount;
+    }
 
-    public void setProfitOrLoss(double profitOrLoss) { this.profitOrLoss = profitOrLoss; }
+    public void setInvestedAmount(Double investedAmount) {
+        this.investedAmount = investedAmount;
+    }
 
-    public double getProfitPercentage() { return profitPercentage; }
+    public Double getFinalValue() {
+        return finalValue;
+    }
 
-    public void setProfitPercentage(double profitPercentage) { this.profitPercentage = profitPercentage; }
+    public void setFinalValue(Double finalValue) {
+        this.finalValue = finalValue;
+    }
+
+    public Double getProfit() {
+        return profit;
+    }
+
+    public void setProfit(Double profit) {
+        this.profit = profit;
+    }
+
+    public Double getGainPercent() {
+        return gainPercent;
+    }
+
+    public void setGainPercent(Double gainPercent) {
+        this.gainPercent = gainPercent;
+    }
+
+    public LocalDateTime getSimulationDate() {
+        return simulationDate;
+    }
+
+    public void setSimulationDate(LocalDateTime simulationDate) {
+        this.simulationDate = simulationDate;
+    }
 }
