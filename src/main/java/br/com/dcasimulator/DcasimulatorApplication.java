@@ -1,6 +1,8 @@
 package br.com.dcasimulator;
 
+import br.com.dcasimulator.entity.Asset;
 import br.com.dcasimulator.entity.SimulationResult;
+import br.com.dcasimulator.repository.AssetRepository;
 import br.com.dcasimulator.repository.SimulationResultRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,6 +33,19 @@ public class DcasimulatorApplication {
 
             repository.save(testResult);
             System.out.println("✅ Saved legacy-style simulation!");
+        };
+    }
+
+    @Bean
+    public CommandLineRunner loadAssets(AssetRepository repository) {
+        return (args) -> {
+            repository.save(new Asset("BTC", "Bitcoin"));
+            repository.save(new Asset("ETH", "Ethereum"));
+            repository.save(new Asset("XRP", "Ripple"));
+            repository.save(new Asset("BNB", "Binance Coin"));
+            repository.save(new Asset("SOL", "Solana"));
+
+            System.out.println("✅ Assets loaded successfully!");
         };
     }
 }
