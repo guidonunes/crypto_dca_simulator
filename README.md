@@ -22,10 +22,10 @@ and compares two major investment strategies:
 Unlike tutorials that rely on in-memory collections, this project uses a
 **full persistence layer** with raw **JDBC**, handling:
 
--   SQL relationships\
--   Foreign key constraints\
--   Transaction control (`COMMIT` / `ROLLBACK`)\
--   Manual Object-Relational Mapping (ORM)
+-   SQL relationships;
+-   Foreign key constraints;
+-   Transaction control (`COMMIT` / `ROLLBACK`);
+-   Manual Object-Relational Mapping (ORM);
 
 ------------------------------------------------------------------------
 
