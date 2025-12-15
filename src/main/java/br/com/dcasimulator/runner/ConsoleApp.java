@@ -38,7 +38,7 @@ public class ConsoleApp implements CommandLineRunner {
             int choice = scanner.nextInt();
 
             if (choice == 0) {
-                System.out.println("Goodbye! 👋");
+                System.out.println("Goodbye! ");
                 break;
             }
 
