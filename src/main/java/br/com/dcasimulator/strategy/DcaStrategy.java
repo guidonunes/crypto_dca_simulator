@@ -1,7 +1,8 @@
-package br.com.dca.strategy;
+package br.com.dcasimulator.strategy;
 
-import br.com.dca.model.PriceRecord;
-import br.com.dca.model.SimulationResult;
+import br.com.dcasimulator.model.PriceRecord;
+import br.com.dcasimulator.entity.SimulationResult;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -10,11 +11,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component("DCA")
 public class DcaStrategy implements InvestmentStrategy {
     @Override
     public SimulationResult calculate(List<PriceRecord> prices, BigDecimal investmentAmount) {
         if(prices == null || prices.isEmpty()) {
-            return new SimulationResult("DCA", null, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+            return new SimulationResult("DCA", null, 0.0, 0.0, 0.0, 0.0);
         }
         prices.sort(Comparator.comparing(PriceRecord::getDate));
 
@@ -24,7 +26,7 @@ public class DcaStrategy implements InvestmentStrategy {
                 .collect(Collectors.toList());
 
         if(validPrices.isEmpty()) {
-            return new SimulationResult("DCA", null, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+            return new SimulationResult("DCA", null, 0.0, 0.0, 0.0, 0.0);
         }
 
         BigDecimal totalCryptoAccumulated = BigDecimal.ZERO;
@@ -60,10 +62,10 @@ public class DcaStrategy implements InvestmentStrategy {
         return new SimulationResult(
                 "DCA",
                 null,
-                totalCashInvested,
-                finalPortfolioValue,
-                profit,
-                percentGain
+                totalCashInvested.doubleValue(),
+                finalPortfolioValue.doubleValue(),
+                profit.doubleValue(),
+                percentGain.doubleValue()
         );
     }
 }

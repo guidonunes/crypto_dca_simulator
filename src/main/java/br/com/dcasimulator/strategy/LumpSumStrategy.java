@@ -1,7 +1,8 @@
-package br.com.dca.strategy;
+package br.com.dcasimulator.strategy;
 
-import br.com.dca.model.PriceRecord;
-import br.com.dca.model.SimulationResult;
+import br.com.dcasimulator.model.PriceRecord;
+import br.com.dcasimulator.entity.SimulationResult;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -9,11 +10,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component("LUMP_SUM")
 public class LumpSumStrategy implements InvestmentStrategy {
     @Override
     public SimulationResult calculate (List<PriceRecord> prices, BigDecimal amount) {
         if(prices == null || prices.isEmpty()) {
-            return new SimulationResult("LUMP", null, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+            return new SimulationResult("DCA", null, 0.0, 0.0, 0.0, 0.0);
         }
 
         prices.sort(Comparator.comparing(PriceRecord::getDate));
@@ -24,7 +26,7 @@ public class LumpSumStrategy implements InvestmentStrategy {
                 .collect(Collectors.toList());
 
         if(validPrices.isEmpty()) {
-            return new SimulationResult("LUMP", null, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+            return new SimulationResult("DCA", null, 0.0, 0.0, 0.0, 0.0);
         }
 
         BigDecimal initialPrice = validPrices.get(0).getClosePrice();
@@ -44,11 +46,10 @@ public class LumpSumStrategy implements InvestmentStrategy {
         return new SimulationResult(
                 "LUMP",
                 null,
-                amount,
-                finalPortfolioValue,
-                profit,
-                percentGain
+                amount.doubleValue(),
+                finalPortfolioValue.doubleValue(),
+                profit.doubleValue(),
+                percentGain.doubleValue()
         );
     }
 }
-

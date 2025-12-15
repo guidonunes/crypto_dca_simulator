@@ -1,7 +1,8 @@
-package br.com.dca.strategy;
+package br.com.dcasimulator.strategy;
 
-import br.com.dca.model.PriceRecord;
-import br.com.dca.model.SimulationResult;
+
+import br.com.dcasimulator.entity.SimulationResult;
+import br.com.dcasimulator.model.PriceRecord;
 
 import java.math.BigDecimal;
 import java.util.List;
