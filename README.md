@@ -1,13 +1,23 @@
-# 📈 Crypto Investment Simulator (Pure Java Edition)
+# 📈 Crypto Investment Simulator
 
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)\
-![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)\
-![JDBC](https://img.shields.io/badge/JDBC-Raw%20SQL-4479A1?style=for-the-badge)
 
-> **A high-performance financial simulation engine built with Vanilla
-> Java.**\
-> Designed to master low-level database transactions, memory management,
-> and design patterns without relying on frameworks like Spring Boot.
+## 🛠️ Tech Stack
+
+### Core & Frameworks
+![Java](https://img.shields.io/badge/Java-17%2B-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.0-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-Hibernate-gray?style=for-the-badge&logo=spring)
+
+### Data & Architecture
+![H2 Database](https://img.shields.io/badge/Database-H2%2FSQL-blue?style=for-the-badge&logo=h2)
+![Design Pattern](https://img.shields.io/badge/Pattern-Strategy-red?style=for-the-badge)
+![Design Pattern](https://img.shields.io/badge/Pattern-Dependency_Injection-red?style=for-the-badge)
+
+### Tools & Build
+![Maven](https://img.shields.io/badge/Build-Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
+![Git](https://img.shields.io/badge/VCS-Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IDE-IntelliJ_IDEA-000000?style=for-the-badge&logo=intellij-idea&logoColor=white)
+
 
 ------------------------------------------------------------------------
 
