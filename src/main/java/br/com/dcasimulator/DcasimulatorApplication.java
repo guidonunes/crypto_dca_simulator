@@ -26,32 +26,6 @@ public class DcasimulatorApplication {
         SpringApplication.run(DcasimulatorApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner demo(SimulationResultRepository simRepository,
-                                  AssetRepository assetRepository,
-                                  LumpSumStrategy lumpSumStrategy,
-                                  DcaStrategy dcaStrategy) {
-        return (args) -> {
-            System.out.println("🚀 Starting Simulation Demo...");
-            List<PriceRecord> fakePrices = new ArrayList<>(List.of(
-                    new PriceRecord(1, LocalDate.now().minusMonths(1), new BigDecimal("50000")),
-                    new PriceRecord(1, LocalDate.now(), new BigDecimal("60000"))
-            ));
-
-            BigDecimal amountToInvest = new BigDecimal("10000");
-
-            SimulationResult dcaResult = dcaStrategy.calculate(fakePrices, amountToInvest);
-            dcaResult.setAssetName("Bitcoin");
-            simRepository.save(dcaResult);
-            System.out.println("✅ DCA Simulation Saved! ID: " + dcaResult.getId());
-
-            SimulationResult lumpResult = lumpSumStrategy.calculate(fakePrices, amountToInvest);
-            lumpResult.setAssetName("Bitcoin");
-            simRepository.save(lumpResult);
-            System.out.println("✅ Lump Sum Simulation Saved! ID: " + lumpResult.getId());
-
-        };
-    }
 
     @Bean
     public CommandLineRunner loadAssets(AssetRepository repository) {
