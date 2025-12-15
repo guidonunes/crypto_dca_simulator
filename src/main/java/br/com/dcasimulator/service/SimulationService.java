@@ -36,4 +36,12 @@ public class SimulationService {
         result.setAssetName(assetName);
         return repository.save(result);
     }
+
+    public List<SimulationResult> getAllResults() {
+        return repository.findAll();
+    }
+
+    public void deleteResult(Long id) {
+        repository.deleteById(id);
+    }
 }
