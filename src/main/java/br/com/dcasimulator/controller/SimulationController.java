@@ -5,10 +5,7 @@ import br.com.dcasimulator.entity.SimulationResult;
 import br.com.dcasimulator.model.PriceRecord;
 import br.com.dcasimulator.model.SimulationRequest;
 import br.com.dcasimulator.service.SimulationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -36,6 +33,11 @@ public class SimulationController {
         } else {
             return simulationService.runLumpSum(fakePrices, request.amount(), request.assetName());
         }
+    }
+
+    @GetMapping
+    public List<SimulationResult> getAllSimulations() {
+        return simulationService.getAllResults();
     }
 
 
