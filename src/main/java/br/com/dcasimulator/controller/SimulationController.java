@@ -44,6 +44,10 @@ public class SimulationController {
     public void deleteSimulation(@PathVariable Long id) {
         simulationService.deleteResult(id);
     }
-}
+
+    @DeleteMapping
+    public void deleteAll() {
+        simulationService.deleteAllResults();
+    }
 
 }

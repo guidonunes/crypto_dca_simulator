@@ -44,4 +44,8 @@ public class SimulationService {
     public void deleteResult(Long id) {
         repository.deleteById(id);
     }
+
+    public void deleteAllResults() {
+        repository.deleteAll();
+    }
 }
