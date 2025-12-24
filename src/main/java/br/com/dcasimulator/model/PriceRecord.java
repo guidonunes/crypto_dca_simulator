@@ -5,27 +5,40 @@ import java.time.LocalDate;
 
 public class PriceRecord {
 
-    private int assetId;
     private LocalDate date;
-    private BigDecimal closePrice;
+    private BigDecimal close;
+    private BigDecimal open;
+    private BigDecimal high;
+    private BigDecimal low;
 
     // Constructor
-    public PriceRecord(int assetId, LocalDate date, BigDecimal closePrice) {
-        this.assetId = assetId;
+    public PriceRecord(LocalDate date, BigDecimal close, BigDecimal open, BigDecimal high, BigDecimal low) {
         this.date = date;
-        this.closePrice = closePrice;
-    }
-
-    // Getters
-    public int getAssetId() {
-        return assetId;
+        this.close = close;
+        this.open = open;
+        this.high = high;
+        this.low = low;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public BigDecimal getClosePrice() {
-        return closePrice;
+    public BigDecimal getClose() {
+        return close;
+    }
+
+    public BigDecimal getOpen() {
+        return open;
+    }
+
+    public BigDecimal getHigh() {
+        return high;
+    }
+
+    public BigDecimal getLow() {
+        return low;
     }
 }
+    // Getters
+
