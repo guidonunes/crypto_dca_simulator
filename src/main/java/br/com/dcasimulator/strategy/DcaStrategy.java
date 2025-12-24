@@ -48,7 +48,7 @@ public class DcaStrategy implements InvestmentStrategy {
             }
         }
 
-        BigDecimal lastPrice = validPrices.get(validPrices.size()-1).getClose();
+        BigDecimal lastPrice = validPrices.get(validPrices.size()-1).getClosePrice();
         BigDecimal finalPortfolioValue = totalCryptoAccumulated.multiply(lastPrice);
         BigDecimal profit = BigDecimal.ZERO;
         BigDecimal percentGain = BigDecimal.ZERO;
