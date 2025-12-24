@@ -26,6 +26,7 @@ public class CsvParser {
                 new InputStreamReader(
                         Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(fileName))
                 ))) {
+
             String line;
             br.readLine();
 

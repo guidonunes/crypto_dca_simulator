@@ -22,17 +22,17 @@ public class LumpSumStrategy implements InvestmentStrategy {
 
         // Filter out records with zero or negative prices
         List<PriceRecord> validPrices = prices.stream()
-                .filter(p -> p.getClosePrice() != null && p.getClosePrice().compareTo(BigDecimal.ZERO) > 0)
+                .filter(p -> p.getClose() != null && p.getClose().compareTo(BigDecimal.ZERO) > 0)
                 .collect(Collectors.toList());
 
         if(validPrices.isEmpty()) {
             return new SimulationResult("DCA", null, 0.0, 0.0, 0.0, 0.0);
         }
 
-        BigDecimal initialPrice = validPrices.get(0).getClosePrice();
+        BigDecimal initialPrice = validPrices.get(0).getClose();
         BigDecimal cryptoAccumulated = amount.divide(initialPrice, 8, RoundingMode.HALF_UP);
 
-        BigDecimal finalPrice = validPrices.get(validPrices.size()-1).getClosePrice();
+        BigDecimal finalPrice = validPrices.get(validPrices.size()-1).getClose();
         BigDecimal finalPortfolioValue = cryptoAccumulated.multiply(finalPrice);
 
         BigDecimal profit = finalPortfolioValue.subtract(amount);

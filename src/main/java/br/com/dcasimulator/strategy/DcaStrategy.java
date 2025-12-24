@@ -22,7 +22,7 @@ public class DcaStrategy implements InvestmentStrategy {
 
         // Filter out records with zero or negative prices
         List<PriceRecord> validPrices = prices.stream()
-                .filter(p -> p.getClosePrice() != null && p.getClosePrice().compareTo(BigDecimal.ZERO) > 0)
+                .filter(p -> p.getClose() != null && p.getClose().compareTo(BigDecimal.ZERO) > 0)
                 .collect(Collectors.toList());
 
         if(validPrices.isEmpty()) {
@@ -37,7 +37,7 @@ public class DcaStrategy implements InvestmentStrategy {
             LocalDate currentDate = record.getDate();
             if(!currentDate.isBefore(nextBuyDate)) {
                 BigDecimal cryptoBought = investmentAmount.divide(
-                        record.getClosePrice(),
+                        record.getClose(),
                         8,
                         RoundingMode.HALF_UP
                 );
@@ -48,7 +48,7 @@ public class DcaStrategy implements InvestmentStrategy {
             }
         }
 
-        BigDecimal lastPrice = validPrices.get(validPrices.size()-1).getClosePrice();
+        BigDecimal lastPrice = validPrices.get(validPrices.size()-1).getClose();
         BigDecimal finalPortfolioValue = totalCryptoAccumulated.multiply(lastPrice);
         BigDecimal profit = BigDecimal.ZERO;
         BigDecimal percentGain = BigDecimal.ZERO;
