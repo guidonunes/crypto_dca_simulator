@@ -1,5 +1,6 @@
 package br.com.dcasimulator.strategy;
 
+import br.com.dcasimulator.entity.Price;
 import br.com.dcasimulator.model.PriceRecord;
 import br.com.dcasimulator.entity.SimulationResult;
 import org.springframework.stereotype.Component;
@@ -13,26 +14,26 @@ import java.util.stream.Collectors;
 @Component("LUMP_SUM")
 public class LumpSumStrategy implements InvestmentStrategy {
     @Override
-    public SimulationResult calculate (List<PriceRecord> prices, BigDecimal amount) {
+    public SimulationResult calculate (List<Price> prices, BigDecimal amount) {
         if(prices == null || prices.isEmpty()) {
             return new SimulationResult("DCA", null, 0.0, 0.0, 0.0, 0.0);
         }
 
-        prices.sort(Comparator.comparing(PriceRecord::getDate));
+        prices.sort(Comparator.comparing(Price::getDate));
 
         // Filter out records with zero or negative prices
-        List<PriceRecord> validPrices = prices.stream()
-                .filter(p -> p.getClose() != null && p.getClose().compareTo(BigDecimal.ZERO) > 0)
+        List<Price> validPrices = prices.stream()
+                .filter(p -> p.getPrice() != null && p.getPrice().compareTo(BigDecimal.ZERO) > 0)
                 .collect(Collectors.toList());
 
         if(validPrices.isEmpty()) {
             return new SimulationResult("DCA", null, 0.0, 0.0, 0.0, 0.0);
         }
 
-        BigDecimal initialPrice = validPrices.get(0).getClose();
+        BigDecimal initialPrice = validPrices.get(0).getPrice();
         BigDecimal cryptoAccumulated = amount.divide(initialPrice, 8, RoundingMode.HALF_UP);
 
-        BigDecimal finalPrice = validPrices.get(validPrices.size()-1).getClose();
+        BigDecimal finalPrice = validPrices.get(validPrices.size()-1).getPrice();
         BigDecimal finalPortfolioValue = cryptoAccumulated.multiply(finalPrice);
 
         BigDecimal profit = finalPortfolioValue.subtract(amount);
