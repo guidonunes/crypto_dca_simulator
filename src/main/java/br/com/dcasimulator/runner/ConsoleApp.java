@@ -8,6 +8,7 @@ import br.com.dcasimulator.service.CsvParser;
 import br.com.dcasimulator.service.SimulationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
+@Order(2)
 public class ConsoleApp implements CommandLineRunner {
 
     private final CsvParser csvParser;

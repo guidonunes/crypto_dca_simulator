@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -28,6 +29,7 @@ public class DcasimulatorApplication {
 
 
     @Bean
+    @Order(1)
     public CommandLineRunner loadAssets(AssetRepository repository) {
         return (args) -> {
             repository.save(new Asset("BTC", "Bitcoin"));
