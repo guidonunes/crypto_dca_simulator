@@ -39,6 +39,17 @@ public class PriceRecord {
     public BigDecimal getLow() {
         return low;
     }
+
+    @Override
+    public String toString() {
+        return "PriceRecord{" +
+                "date=" + date +
+                ", close=" + close +
+                ", open=" + open +
+                ", high=" + high +
+                ", low=" + low +
+                '}';
+    }
 }
-    // Getters
+
 
