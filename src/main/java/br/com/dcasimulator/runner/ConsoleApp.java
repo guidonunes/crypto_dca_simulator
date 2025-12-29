@@ -36,6 +36,13 @@ public class ConsoleApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        long count = priceRepository.count();
+
+        if (count > 0) {
+            System.out.println("--- 🟡 SKIPPING IMPORT: Database already has " + count + " prices ---");
+            return; // Stop here! Don't do anything else.
+        }
+
         System.out.println("--- 🟢 STARTING MULTI-ASSET IMPORT ---");
 
         List<Asset> allAssets = assetRepository.findAll();
