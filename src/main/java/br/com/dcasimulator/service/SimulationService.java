@@ -13,6 +13,7 @@ import br.com.dcasimulator.strategy.LumpSumStrategy;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -33,18 +34,30 @@ public class SimulationService {
     }
 
     public SimulationResult runSimulation(SimulationRequest request) {
-        List<Price> realPrices = priceRepository.findByAssetSymbol(request.assetName());
-        if (realPrices.isEmpty()) {
+        List<Price> allPrices = priceRepository.findByAssetSymbol(request.assetName());
+        if (allPrices.isEmpty()) {
             throw new RuntimeException("No history found for asset: " + request.assetName());
         }
 
-        // 3. Route to Strategy
-        // Note: We now pass 'realPrices' which is List<Price>
-        if ("DCA".equalsIgnoreCase(request.strategy())) {
-            return runDca(realPrices, request.amount(), request.assetName());
-        } else {
-            return runLumpSum(realPrices, request.amount(), request.assetName());
+        if(request.startDate() != null) {
+            LocalDate firstDbDate = allPrices.get(allPrices.size() - 1).getDate();
+
+            if(firstDbDate.isAfter(request.startDate())) {
+                throw new IllegalArgumentException(
+                        "Invalid Start Date! You asked for " + request.startDate() +
+                                ", but our history for " + request.assetName() +
+                                " only starts on " + firstDbDate
+                );
+            }
         }
+
+        if ("DCA".equalsIgnoreCase(request.strategy())) {
+            return runDca(allPrices, request.amount(), request.assetName());
+        } else {
+            return runLumpSum(allPrices, request.amount(), request.assetName());
+        }
+
+
     }
 
     public SimulationResult runDca(List<Price> prices, BigDecimal amount, String assetName) {
