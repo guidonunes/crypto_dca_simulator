@@ -34,9 +34,6 @@ public class DcasimulatorApplication {
         return (args) -> {
             repository.save(new Asset("BTC", "Bitcoin"));
             repository.save(new Asset("ETH", "Ethereum"));
-            repository.save(new Asset("XRP", "Ripple"));
-            repository.save(new Asset("BNB", "Binance Coin"));
-            repository.save(new Asset("SOL", "Solana"));
 
             System.out.println("✅ Assets loaded successfully!");
         };

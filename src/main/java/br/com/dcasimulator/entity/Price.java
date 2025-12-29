@@ -16,11 +16,15 @@ public class Price {
     private LocalDate date;
     private BigDecimal price;
 
+    public Price() {}
+
     public Price(String assetSymbol, LocalDate date, BigDecimal price) {
         this.assetSymbol = assetSymbol;
         this.date = date;
         this.price = price;
     }
+
+
 
     public Long getId() {
         return id;
