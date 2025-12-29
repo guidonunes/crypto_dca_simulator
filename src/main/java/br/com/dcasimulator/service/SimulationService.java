@@ -3,6 +3,7 @@ package br.com.dcasimulator.service;
 
 import br.com.dcasimulator.entity.Price;
 import br.com.dcasimulator.entity.SimulationResult;
+import br.com.dcasimulator.exception.ResourceNotFoundException;
 import br.com.dcasimulator.model.PriceRecord;
 import br.com.dcasimulator.model.SimulationRequest;
 import br.com.dcasimulator.repository.AssetRepository;
@@ -36,7 +37,7 @@ public class SimulationService {
     public SimulationResult runSimulation(SimulationRequest request) {
         List<Price> allPrices = priceRepository.findByAssetSymbol(request.assetName());
         if (allPrices.isEmpty()) {
-            throw new RuntimeException("No history found for asset: " + request.assetName());
+            throw new ResourceNotFoundException("Asset not found: " + request.assetName());
         }
 
         if(request.startDate() != null) {
