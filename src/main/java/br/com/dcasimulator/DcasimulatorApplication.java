@@ -32,8 +32,8 @@ public class DcasimulatorApplication {
     @Order(1)
     public CommandLineRunner loadAssets(AssetRepository repository) {
         return (args) -> {
-            repository.save(new Asset("BTC", "Bitcoin"));
-            repository.save(new Asset("ETH", "Ethereum"));
+//            repository.save(new Asset("BTC", "Bitcoin"));
+//            repository.save(new Asset("ETH", "Ethereum"));
 
             System.out.println("✅ Assets loaded successfully!");
         };

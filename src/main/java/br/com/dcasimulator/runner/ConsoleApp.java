@@ -49,8 +49,8 @@ public class ConsoleApp implements CommandLineRunner {
             String symbol = asset.getSymbol();
 
             // Construct filename: "BTC" -> "btc_brl_data.csv"
-//            String fileName = symbol.toLowerCase() + "_brl_data.csv";
-            String fileName = "verify_data.csv";
+            String fileName = symbol.toLowerCase() + "_brl_data.csv";
+//            String fileName = "verify_data.csv";
             System.out.println("Processing Asset: " + symbol + " (File: " + fileName + ")");
 
             try {
