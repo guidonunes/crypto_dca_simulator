@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { runSimulation } from "@/services/api";
 
 
 export default function SimulationForm() {
@@ -8,10 +9,21 @@ export default function SimulationForm() {
   const [amount, setAmount] = useState(100);
   const [strategy, setStrategy] = useState("DCA");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitting:", { asset, amount, strategy });
-    alert(`Running Simulation for ${asset} with $${amount}`);
+    try {
+      const result = await runSimulation({
+        assetName: asset,
+        amount,
+        strategy,
+      });
+      console.log("✅ API Success:", result);
+      alert(`Success! Final Value: $${result.finalValue}`);
+
+    } catch (error) {
+      console.error("❌ API Error:", error);
+      alert("Simulation failed. Please try again.");
+    }
   };
 
   return (
