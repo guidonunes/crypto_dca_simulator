@@ -7,6 +7,7 @@ export interface SimulationRequest {
 export interface SimulationResponse {
   id: number;
   assetName: string;
+  investedAmount: number;
   finalValue: number;
   profit: number;
   gainPercent: number;

@@ -25,7 +25,7 @@ export default function ResultCards({ data }: Props) {
           Total Invested
         </h3>
         <p className="text-3xl font-bold text-white mt-2">
-          {formatCurrency(data.finalValue).format(data.finalValue)}
+          {formatCurrency(data.investedAmount).format(data.investedAmount)}
         </p>
       </div>
 
