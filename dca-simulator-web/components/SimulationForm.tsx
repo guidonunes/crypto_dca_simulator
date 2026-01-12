@@ -56,7 +56,7 @@ export default function SimulationForm() {
         {/* SUBMIT BUTTON */}
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200"
+          className="w-full bg-yellow-600 hover:bg-yellow-700 text-slate-900 font-bold py-2 px-4  mt-3 rounded transition duration-200"
         >
           Simulate
         </button>
