@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function SimulationForm() {
   const [asset, setAsset] = useState("BTC");
   const [amount, setAmount] = useState(100);
+  const [strategy, setStrategy] = useState("DCA");
 
   return (
     <div className="bg-slate-800 p-6 rounded-lg shadow-lg w-full max-w-md">
@@ -33,6 +34,19 @@ export default function SimulationForm() {
             onChange={(e) => setAmount(Number(e.target.value))}
             className="w-full p-2 rounded bg-slate-700 text-white border border-slate-600 focus:outline-none focus:border-blue-500"
           />
+        </div>
+        {/* STRATEGY SELECTION */}
+        <div>
+          <label>Strategy</label>
+          <select
+            value={strategy}
+            onChange={(e)=> setStrategy(e.target.value)}
+            className="w-full p-2 rounded bg-slate-700 text-white border border-slate-600 focus:outline-none focus:border-blue-500"
+          >
+            <option value="DCA">Dollar-Cost Averaging (DCA)</option>
+            <option value="LumpSum">Lump Sum (All at once)</option>
+
+          </select>
         </div>
       </form>
     </div>
