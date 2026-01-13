@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { runSimulation, SimulationResponse } from "@/services/api";
 import ResultCards from './ResultCards';
+import SimulationChart from "./SimulationChart";
 
 
 
@@ -85,6 +86,10 @@ export default function SimulationForm() {
         </form>
       </div>
       {result && <ResultCards data={result} />}
+
+      {result && result.chartData && (
+        <SimulationChart data={result.chartData} />
+      )}
     </div>
   )
 }
