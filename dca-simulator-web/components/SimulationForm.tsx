@@ -38,8 +38,8 @@ export default function SimulationForm() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="bg-slate-800 p-6 rounded-lg shadow-lg w-full max-w-4xl">
+    <div className="w-full flex flex-col items-center px-4 sm:px-0">
+      <div className="bg-slate-800 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-4xl">
         <h2 className="text-2xl font-bold mb-6 text-white text-center">
           Crypto Configuration
         </h2>

@@ -32,7 +32,7 @@ export default function SimulationChart({ data }: Props) {
   // Early return if no data
   if (!data || data.length === 0) {
     return (
-      <div className="bg-slate-800 p-4 rounded-lg shadow-lg mt-6 w-full max-w-4xl border border-slate-700">
+      <div className="bg-slate-800 p-4 rounded-lg shadow-lg mt-6 w-full max-w-4xl border border-slate-700 px-4 sm:px-0">
         <p className="text-white text-center">No chart data available</p>
       </div>
     );
@@ -60,34 +60,55 @@ export default function SimulationChart({ data }: Props) {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 2,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top" as const,
-        labels: { color: "white" }
+        labels: { 
+          color: "white",
+          boxWidth: 12,
+          padding: 8,
+          font: {
+            size: 12
+          }
+        }
       },
       title: {
         display: true,
         text: "Simulation Over Time",
         color: "white",
+        font: {
+          size: 16
+        }
       },
     },
     scales: {
       y: { 
-        ticks: { color: "#94a3b8" }, 
+        ticks: { 
+          color: "#94a3b8",
+          font: {
+            size: 11
+          }
+        }, 
         grid: { color: "#334155" } 
       },
       x: { 
-        ticks: { color: "#94a3b8" }, 
+        ticks: { 
+          color: "#94a3b8",
+          font: {
+            size: 11
+          },
+          maxRotation: 45,
+          minRotation: 45
+        }, 
         grid: { display: false } 
       },
     },
   }
 
   return (
-    <div className="bg-slate-800 p-4 rounded-lg shadow-lg mt-6 w-full max-w-4xl border border-slate-700">
-      <div style={{ position: 'relative', height: '400px', width: '100%' }}>
+    <div className="bg-slate-800 p-4 rounded-lg shadow-lg mt-6 w-full max-w-4xl border border-slate-700 px-4 sm:px-0">
+      <div style={{ position: 'relative', height: '300px', width: '100%' }} className="sm:h-[400px]">
         <Line options={options} data={chartData} />
       </div>
     </div>
