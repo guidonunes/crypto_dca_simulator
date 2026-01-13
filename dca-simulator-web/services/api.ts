@@ -4,6 +4,12 @@ export interface SimulationRequest {
   strategy: string;
 }
 
+export interface MonthlyData {
+  month: number;
+  investedAmount: number;
+  portfolioValue: number;
+}
+
 export interface SimulationResponse {
   id: number;
   assetName: string;
@@ -11,6 +17,7 @@ export interface SimulationResponse {
   finalValue: number;
   profit: number;
   gainPercent: number;
+  chartData: MonthlyData[];
 }
 
 export async function runSimulation(data: SimulationRequest): Promise<SimulationResponse> {
