@@ -1,6 +1,7 @@
 package br.com.dcasimulator.controller;
 
 
+import br.com.dcasimulator.dto.SimulationResponse;
 import br.com.dcasimulator.entity.SimulationResult;
 import br.com.dcasimulator.model.PriceRecord;
 import br.com.dcasimulator.model.SimulationRequest;
@@ -22,7 +23,7 @@ public class SimulationController {
     }
 
     @PostMapping
-    public SimulationResult runSimulation(@RequestBody SimulationRequest request) {
+    public SimulationResponse runSimulation(@RequestBody SimulationRequest request) {
         return simulationService.runSimulation(request);
     }
 

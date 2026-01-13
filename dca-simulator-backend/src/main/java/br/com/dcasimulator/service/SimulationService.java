@@ -1,6 +1,8 @@
 package br.com.dcasimulator.service;
 
 
+import br.com.dcasimulator.dto.MonthlyData;
+import br.com.dcasimulator.dto.SimulationResponse;
 import br.com.dcasimulator.entity.Price;
 import br.com.dcasimulator.entity.SimulationResult;
 import br.com.dcasimulator.exception.ResourceNotFoundException;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,7 +37,7 @@ public class SimulationService {
         this.priceRepository = priceRepository;
     }
 
-    public SimulationResult runSimulation(SimulationRequest request) {
+    public SimulationResponse runSimulation(SimulationRequest request) {
         List<Price> allPrices = priceRepository.findByAssetSymbol(request.assetName());
         if (allPrices.isEmpty()) {
             throw new ResourceNotFoundException("Asset not found: " + request.assetName());
@@ -52,12 +55,24 @@ public class SimulationService {
             }
         }
 
+        SimulationResult result;
+
         if ("DCA".equalsIgnoreCase(request.strategy())) {
-            return runDca(allPrices, request.amount(), request.assetName());
+            result = runDca(allPrices, request.amount(), request.assetName());
         } else {
-            return runLumpSum(allPrices, request.amount(), request.assetName());
+            result = runLumpSum(allPrices, request.amount(), request.assetName());
         }
 
+        List<MonthlyData> chartData = new ArrayList<>();
+
+        return new SimulationResponse(
+                result.getAssetName(),
+                BigDecimal.valueOf(result.getInvestedAmount()), // Converting Double -> BigDecimal
+                BigDecimal.valueOf(result.getFinalValue()),
+                BigDecimal.valueOf(result.getProfit()),
+                BigDecimal.valueOf(result.getGainPercent()),
+                chartData
+        );
 
     }
 
