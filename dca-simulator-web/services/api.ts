@@ -11,7 +11,7 @@ export interface MonthlyData {
 }
 
 export interface SimulationResponse {
-  id: number;
+  id?: number; // Optional - backend doesn't always provide this
   assetName: string;
   investedAmount: number;
   finalValue: number;

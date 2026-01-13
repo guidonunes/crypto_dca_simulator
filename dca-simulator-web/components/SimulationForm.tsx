@@ -27,6 +27,7 @@ export default function SimulationForm() {
 
       setResult(result);
       console.log("✅ API Success:", result);
+      console.log("📊 Chart Data:", result.chartData);
 
     } catch (error) {
       console.error("❌ API Error:", error);
@@ -38,7 +39,7 @@ export default function SimulationForm() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="bg-slate-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+      <div className="bg-slate-800 p-6 rounded-lg shadow-lg w-full max-w-4xl">
         <h2 className="text-2xl font-bold mb-6 text-white text-center">
           Crypto Configuration
         </h2>
@@ -87,7 +88,7 @@ export default function SimulationForm() {
       </div>
       {result && <ResultCards data={result} />}
 
-      {result && result.chartData && (
+      {result && result.chartData && result.chartData.length > 0 && (
         <SimulationChart data={result.chartData} />
       )}
     </div>

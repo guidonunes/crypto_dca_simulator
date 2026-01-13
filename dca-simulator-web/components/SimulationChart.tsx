@@ -29,6 +29,15 @@ interface Props {
 
 
 export default function SimulationChart({ data }: Props) {
+  // Early return if no data
+  if (!data || data.length === 0) {
+    return (
+      <div className="bg-slate-800 p-4 rounded-lg shadow-lg mt-6 w-full max-w-4xl border border-slate-700">
+        <p className="text-white text-center">No chart data available</p>
+      </div>
+    );
+  }
+
   const chartData = {
     labels: data.map((entry) => `Month ${entry.month}`),
     datasets: [
@@ -51,9 +60,13 @@ export default function SimulationChart({ data }: Props) {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: true,
+    aspectRatio: 2,
     plugins: {
       legend: {
-        position: "top" as const, labels: { color: "white" } },
+        position: "top" as const,
+        labels: { color: "white" }
+      },
       title: {
         display: true,
         text: "Simulation Over Time",
@@ -61,14 +74,22 @@ export default function SimulationChart({ data }: Props) {
       },
     },
     scales: {
-      y: { ticks: { color: "#94a3b8" }, grid: { color: "#334155" } },
-      x: { ticks: { color: "#94a3b8" }, grid: { display: false } },
+      y: { 
+        ticks: { color: "#94a3b8" }, 
+        grid: { color: "#334155" } 
+      },
+      x: { 
+        ticks: { color: "#94a3b8" }, 
+        grid: { display: false } 
+      },
     },
   }
 
   return (
     <div className="bg-slate-800 p-4 rounded-lg shadow-lg mt-6 w-full max-w-4xl border border-slate-700">
-      <Line options={options} data={chartData} />
+      <div style={{ position: 'relative', height: '400px', width: '100%' }}>
+        <Line options={options} data={chartData} />
+      </div>
     </div>
   );
 }
