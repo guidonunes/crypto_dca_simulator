@@ -16,9 +16,12 @@ import br.com.dcasimulator.strategy.LumpSumStrategy;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SimulationService {
@@ -56,14 +59,15 @@ public class SimulationService {
         }
 
         SimulationResult result;
+        List<MonthlyData> chartData;
 
         if ("DCA".equalsIgnoreCase(request.strategy())) {
             result = runDca(allPrices, request.amount(), request.assetName());
+            chartData = generateDcaChartData(allPrices, request.amount());
         } else {
             result = runLumpSum(allPrices, request.amount(), request.assetName());
+            chartData = generateLumpSumChartData(allPrices, request.amount());
         }
-
-        List<MonthlyData> chartData = new ArrayList<>();
 
         return new SimulationResponse(
                 result.getAssetName(),
@@ -98,5 +102,139 @@ public class SimulationService {
 
     public void deleteAllResults() {
         repository.deleteAll();
+    }
+
+    private List<MonthlyData> generateDcaChartData(List<Price> prices, BigDecimal investmentAmount) {
+        List<MonthlyData> chartData = new ArrayList<>();
+        
+        if (prices == null || prices.isEmpty()) {
+            return chartData;
+        }
+
+        // Sort prices by date
+        List<Price> validPrices = prices.stream()
+                .filter(p -> p.getPrice() != null && p.getPrice().compareTo(BigDecimal.ZERO) > 0)
+                .sorted(Comparator.comparing(Price::getDate))
+                .collect(Collectors.toList());
+
+        if (validPrices.isEmpty()) {
+            return chartData;
+        }
+
+        BigDecimal totalCryptoAccumulated = BigDecimal.ZERO;
+        BigDecimal totalCashInvested = BigDecimal.ZERO;
+        LocalDate startDate = validPrices.get(0).getDate();
+        LocalDate nextBuyDate = startDate;
+
+        // Track state for each month
+        LocalDate currentMonth = startDate.withDayOfMonth(1);
+        LocalDate lastDate = validPrices.get(validPrices.size() - 1).getDate();
+        LocalDate lastMonth = lastDate.withDayOfMonth(1);
+        int monthNumber = 1;
+        BigDecimal lastMonthEndPrice = null;
+
+        // Process all prices in order
+        for (Price price : validPrices) {
+            LocalDate currentDate = price.getDate();
+            LocalDate priceMonth = currentDate.withDayOfMonth(1);
+
+            // Process investments (same logic as DCA strategy)
+            if (!currentDate.isBefore(nextBuyDate)) {
+                BigDecimal cryptoBought = investmentAmount.divide(
+                        price.getPrice(),
+                        8,
+                        RoundingMode.HALF_UP
+                );
+                totalCryptoAccumulated = totalCryptoAccumulated.add(cryptoBought);
+                totalCashInvested = totalCashInvested.add(investmentAmount);
+                nextBuyDate = nextBuyDate.plusDays(30);
+            }
+
+            // When we move to a new month, record the previous month's data
+            if (!priceMonth.equals(currentMonth) && lastMonthEndPrice != null) {
+                if (totalCryptoAccumulated.compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal portfolioValue = totalCryptoAccumulated.multiply(lastMonthEndPrice);
+                    chartData.add(new MonthlyData(
+                            monthNumber,
+                            totalCashInvested,
+                            portfolioValue
+                    ));
+                    monthNumber++;
+                }
+                currentMonth = priceMonth;
+            }
+
+            // Update the last price seen for current month
+            if (priceMonth.equals(currentMonth)) {
+                lastMonthEndPrice = price.getPrice();
+            }
+        }
+
+        // Add the last month's data
+        if (lastMonthEndPrice != null && totalCryptoAccumulated.compareTo(BigDecimal.ZERO) > 0) {
+            BigDecimal portfolioValue = totalCryptoAccumulated.multiply(lastMonthEndPrice);
+            chartData.add(new MonthlyData(
+                    monthNumber,
+                    totalCashInvested,
+                    portfolioValue
+            ));
+        }
+
+        return chartData;
+    }
+
+    private List<MonthlyData> generateLumpSumChartData(List<Price> prices, BigDecimal amount) {
+        List<MonthlyData> chartData = new ArrayList<>();
+        
+        if (prices == null || prices.isEmpty()) {
+            return chartData;
+        }
+
+        // Sort prices by date
+        List<Price> validPrices = prices.stream()
+                .filter(p -> p.getPrice() != null && p.getPrice().compareTo(BigDecimal.ZERO) > 0)
+                .sorted(Comparator.comparing(Price::getDate))
+                .collect(Collectors.toList());
+
+        if (validPrices.isEmpty()) {
+            return chartData;
+        }
+
+        BigDecimal initialPrice = validPrices.get(0).getPrice();
+        BigDecimal cryptoAccumulated = amount.divide(initialPrice, 8, RoundingMode.HALF_UP);
+        int monthNumber = 1;
+
+        // Group prices by month and calculate monthly snapshots
+        LocalDate startDate = validPrices.get(0).getDate();
+        LocalDate currentMonth = startDate.withDayOfMonth(1);
+        LocalDate lastMonth = validPrices.get(validPrices.size() - 1).getDate().withDayOfMonth(1);
+
+        while (!currentMonth.isAfter(lastMonth)) {
+            // Find the last price in this month
+            BigDecimal monthEndPrice = null;
+            for (Price price : validPrices) {
+                LocalDate priceMonth = price.getDate().withDayOfMonth(1);
+                if (priceMonth.equals(currentMonth)) {
+                    monthEndPrice = price.getPrice();
+                } else if (priceMonth.isAfter(currentMonth)) {
+                    break;
+                }
+            }
+
+            // Calculate portfolio value at end of month
+            if (monthEndPrice != null) {
+                BigDecimal portfolioValue = cryptoAccumulated.multiply(monthEndPrice);
+                chartData.add(new MonthlyData(
+                        monthNumber,
+                        amount, // Invested amount stays constant for lump sum
+                        portfolioValue
+                ));
+                monthNumber++;
+            }
+
+            currentMonth = currentMonth.plusMonths(1);
+        }
+
+        return chartData;
     }
 }

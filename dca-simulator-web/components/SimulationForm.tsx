@@ -4,6 +4,7 @@ import { useState } from "react";
 import { runSimulation, SimulationResponse } from "@/services/api";
 import ResultCards from './ResultCards';
 import SimulationChart from "./SimulationChart";
+import toast from "react-hot-toast";
 
 
 
@@ -18,6 +19,27 @@ export default function SimulationForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setResult(null);
+
+    const simulationPromise = runSimulation({
+        assetName: asset,
+        amount,
+        strategy
+    });
+
+    toast.promise(simulationPromise, {
+        loading: 'Crunching the numbers... 🧮',
+        success: (data) => {
+            setResult(data); // Save the data
+            return `Success! ${asset} simulation complete.`;
+        },
+        error: (err) => {
+            console.error(err);
+            // This pulls the message from api.ts ("Asset not found", etc.)
+            return `Error: ${err.message}`;
+        },
+    });
+
     try {
       const result = await runSimulation({
         assetName: asset,
@@ -25,13 +47,14 @@ export default function SimulationForm() {
         strategy,
       });
 
+
+
       setResult(result);
       console.log("✅ API Success:", result);
       console.log("📊 Chart Data:", result.chartData);
 
     } catch (error) {
       console.error("❌ API Error:", error);
-      alert("Simulation failed. Please try again.");
     } finally {
       setLoading(false);
     }

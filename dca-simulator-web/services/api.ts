@@ -30,7 +30,9 @@ export async function runSimulation(data: SimulationRequest): Promise<Simulation
   });
 
   if (!response.ok) {
-    throw new Error("Failed to run simulation");
+    const errorData = await response.json().catch(() => ({}));
+    const errorMessage = errorData.message || "Failed to run simulation";
+    throw new Error(errorMessage);
   }
 
   return response.json(
