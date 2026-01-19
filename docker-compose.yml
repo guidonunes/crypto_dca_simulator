@@ -21,9 +21,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_USER: root
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_URL: jdbc:mysql://mysql_db:3306/crypto_simulator?allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/crypto_simulator?allowPublicKeyRetrieval=true&useSSL=false
     env_file:
       - .env
 
