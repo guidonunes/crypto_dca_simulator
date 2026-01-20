@@ -5,7 +5,7 @@ import { runSimulation, SimulationResponse } from "@/services/api";
 import ResultCards from './ResultCards';
 import SimulationChart from "./SimulationChart";
 import toast from "react-hot-toast";
-import Image from "next/image";
+
 
 
 

@@ -32,7 +32,7 @@ export default function SimulationChart({ data }: Props) {
   // Early return if no data
   if (!data || data.length === 0) {
     return (
-      <div className="bg-slate-800 p-4 rounded-lg shadow-lg mt-6 w-full max-w-4xl border border-slate-700 px-4 sm:px-0">
+      <div className="bg-[#3c3c3c] p-4 rounded-lg shadow-lg mt-6 w-full max-w-4xl border border-slate-700 px-4 sm:px-0">
         <p className="text-white text-center">No chart data available</p>
       </div>
     );
@@ -64,7 +64,7 @@ export default function SimulationChart({ data }: Props) {
     plugins: {
       legend: {
         position: "top" as const,
-        labels: { 
+        labels: {
           color: "white",
           boxWidth: 12,
           padding: 8,
@@ -83,31 +83,31 @@ export default function SimulationChart({ data }: Props) {
       },
     },
     scales: {
-      y: { 
-        ticks: { 
+      y: {
+        ticks: {
           color: "#94a3b8",
           font: {
             size: 11
           }
-        }, 
-        grid: { color: "#334155" } 
+        },
+        grid: { color: "#334155" }
       },
-      x: { 
-        ticks: { 
+      x: {
+        ticks: {
           color: "#94a3b8",
           font: {
             size: 11
           },
           maxRotation: 45,
           minRotation: 45
-        }, 
-        grid: { display: false } 
+        },
+        grid: { display: false }
       },
     },
   }
 
   return (
-    <div className="bg-slate-800 p-4 rounded-lg shadow-lg mt-6 w-full max-w-4xl border border-slate-700 px-4 sm:px-0">
+    <div className="bg-[#3c3c3c] p-4 rounded-lg shadow-lg shadow-amber-800 mt-6 w-full max-w-4xl border border-slate-700 px-4 sm:px-0">
       <div style={{ position: 'relative', height: '300px', width: '100%' }} className="sm:h-[400px]">
         <Line options={options} data={chartData} />
       </div>

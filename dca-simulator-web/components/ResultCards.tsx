@@ -20,7 +20,7 @@ export default function ResultCards({ data }: Props) {
     return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 w-full max-w-4xl px-4 sm:px-0">
       {/* Card 1: Total Invested */}
-      <div className="bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
+      <div className="bg-[#3c3c3c] p-6 rounded-lg shadow-lg shadow-amber-800 text-center border border-slate-700">
         <h3 className="text-slate-400 text-sm uppercase tracking-wider font-semibold">
           Total Invested
         </h3>
@@ -30,7 +30,7 @@ export default function ResultCards({ data }: Props) {
       </div>
 
       {/* Card 2: Final Value */}
-      <div className="bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
+      <div className="bg-[#3c3c3c] p-6 rounded-lg shadow-lg shadow-amber-800 text-center border border-slate-700">
         <h3 className="text-slate-400 text-sm uppercase tracking-wider font-semibold">
           Final Value
         </h3>
@@ -40,7 +40,7 @@ export default function ResultCards({ data }: Props) {
       </div>
 
       {/* Card 3: Profit / Loss */}
-      <div className="bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
+      <div className="bg-[#3c3c3c] p-6 rounded-lg shadow-lg shadow-amber-800 text-center border border-slate-700">
         <h3 className="text-slate-400 text-sm uppercase tracking-wider font-semibold">
           Total Profit
         </h3>
