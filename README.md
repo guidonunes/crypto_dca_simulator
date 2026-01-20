@@ -1,6 +1,8 @@
 # 🚀 Crypto DCA Simulator
 A full-stack investment analysis tool designed to backtest and compare cryptocurrency strategies (Dollar Cost Averaging vs. Lump Sum) using historical market data.
 
+Check it live: https://dca-sim.vercel.app
+
 
 ## 🌟 Overview
 This project simulates investment scenarios to help users visualize the long-term impact of their strategies. It features a high-precision Java Spring Boot backend for calculations and a responsive Next.js frontend for interactive data visualization.
