@@ -66,6 +66,9 @@ export default function SimulationForm() {
         <h2 className="text-2xl font-bold mb-6 text-white text-center">
           Crypto Configuration
         </h2>
+        <p className="text-slate-400 text-sm text-center mb-6">
+            Data range: 01/01/2020 to 01/01/2026
+        </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* ASSET SELECTION */}
           <div>
